@@ -1,0 +1,24 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="CrossBrowserTest" verbose="1">
+    <test name="ChromeTest">
+        <parameter name="browser" value="chrome"/>
+    </test>
+
+    <test name="FirefoxTest">
+        <parameter name="browser" value="firefox"/>
+    </test>
+
+    <test name="Test" >
+        <classes>
+            <class name="Annotations" />
+            <class name="ProductCreation" />
+            <class name="AssertProductCreation" />
+        </classes>
+    </test>
+
+    <listeners>
+        <listener class-name="Listener" />
+    </listeners>
+
+</suite>
