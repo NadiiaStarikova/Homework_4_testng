@@ -1,30 +1,18 @@
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.testng.annotations.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import java.util.concurrent.TimeUnit;
-import org.testng.annotations.Test;
-import org.testng.annotations.Parameters;
-import org.testng.annotations.DataProvider;
 
-
-@Listeners
+@Listeners(Listener.class)
 
 public class Annotations {
 
     protected WebDriver driver;
 
-    /*@DataProvider(name = "user1")
-    public Object[][] credentials() {
-        return new Object[][] {
-                {"webinar.test@gmail.com", "Xcg7299bnSmMuRLp9ITw"},
-                {"webinar.test@gmail.com", "Xcg7299bnSmMuRLp9ITw"},
-        };
-    }*/
-
     @Parameters("browser")
-
     @BeforeClass
     protected WebDriver getDriver(String browser) {
         if(browser.equals("chrome")) {
@@ -32,7 +20,7 @@ public class Annotations {
             driver = new ChromeDriver();
         }
         else if(browser.equals("firefox")) {
-            System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "/drivers/geckodriver.exe");
+            System.setProperty("webdriver.gecko.driver", System.getProperty("user.dir") + "/drivers/geckodriver.exe");
             driver = new FirefoxDriver();
         }
         driver.manage().window().maximize();
@@ -49,6 +37,6 @@ public class Annotations {
     @Test
     public void ProductCreation() {System.out.println("ProductCreation execution");}
 
-    @Test(dependsOnMethods={"ProductCreation"})
-    private void AssertProductCreation() {System.out.println("AssertProductCreation execution");}
+    @Test(dependsOnMethods = "ProductCreation")
+    public void AssertProductCreation() {System.out.println("AssertProductCreation execution");}
 }
